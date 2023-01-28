@@ -1,3 +1,5 @@
+import time
+
 import requests
 import selectorlib
 
@@ -30,11 +32,13 @@ def read_extracted_data():
 
 
 if __name__ == "__main__":
-    source = scraper(URL)
-    extracted_vals = extract(source)
+    while True:
+        source = scraper(URL)
+        extracted_vals = extract(source)
 
-    content = read_extracted_data()
-    if extracted_vals != "No upcoming tours":
-        if extracted_vals not in content:
-            store(extracted_vals)
-            send_email(extracted_vals)
+        content = read_extracted_data()
+        if extracted_vals != "No upcoming tours":
+            if extracted_vals not in content:
+                store(extracted_vals)
+                send_email(extracted_vals)
+        time.sleep(2)
